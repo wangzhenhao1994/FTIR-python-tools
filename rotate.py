@@ -25,7 +25,7 @@ def rotate(burst,lenlist=None):
         elif ind >= zpd:
             zer[ind-zpd] = val # put the zpd and higher data at the beginning of zeros array
     if np.where(zer == max(zer))[0][0] != 0: # error check just in case the zpd is not located at index 0 using this method
-        print np.where(zer == max(zer))[0][0]
+        print(np.where(zer == max(zer))[0][0])
         raise IndexError('The ZPD is not located at index zero, fix the script')
     return zer
 

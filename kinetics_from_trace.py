@@ -37,7 +37,7 @@ def fit_kinetics(xin,yin=None,**kwargs):
     if set(kwargs.keys()) - set(ks.keys()): # check for invalid keyword arguments
         string = ''
         for i in set(kwargs.keys()) - set(ks.keys()):
-            string += ` i`
+            string += ' i'
         raise KeyError('Unsupported keyword argument(s): %s' %string)
     ks.update(kwargs) # update defaules with provided keyword arguments
     
@@ -192,7 +192,7 @@ def fit_kinetics(xin,yin=None,**kwargs):
                 yadjusted = y[ind:] + res.x[2]
                 Rsq,SStot,SSres = rsquared(ysimulated,yadjusted)
                 if ind > 0 and Rsq < rsqlst[-1]:
-                    print 'breaking'
+                    print('breaking')
                     ind = ind-1
                     break
                 rsqlst.append(Rsq)
@@ -202,7 +202,7 @@ def fit_kinetics(xin,yin=None,**kwargs):
         ysimulated = first_order(res.x[0:2],x) # calculate y values based on least squares output
     yadjusted = y + res.x[2] # adjust y values
     Rsq,SStot,SSres = rsquared(ysimulated,yadjusted) # calculate R-squared statistics
-    print 'R-squared: %.4f' %Rsq
+    print('R-squared: %.4f' %Rsq)
     
     if ks['genplot'] is True or ks['saveplot'] is True: # import pyplot if necessary
         import pylab as pl

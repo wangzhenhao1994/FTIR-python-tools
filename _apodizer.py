@@ -162,5 +162,5 @@ if __name__ == '__main__':
     apdz = apodizer(
     method='blackman-harris-3'
     )
-    print apdz
+    print(apdz)
     apdz.plotwindow()

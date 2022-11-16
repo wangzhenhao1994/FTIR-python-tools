@@ -15,7 +15,7 @@ class XLSX(object):
         if set(kwargs.keys()) - set(self.ks.keys()): # check for invalid keyword arguments
             string = ''
             for i in set(kwargs.keys()) - set(self.ks.keys()):
-                string += ` i`
+                string += ' i'
             raise KeyError('Unsupported keyword argument(s): %s' %string)
         self.ks.update(kwargs) # update defaules with provided keyword arguments
         
@@ -35,9 +35,9 @@ class XLSX(object):
     def checkduplicatesheet(self,sheet):
         """checks for duplicate sheets in the workbook and creates a unique name"""
         i = 1
-        while sheet+' ('+`i`+')' in self.wb.get_sheet_names():
+        while sheet+' ('+'i'+')' in self.wb.get_sheet_names():
             i += 1
-        return sheet+' ('+`i`+')'
+        return sheet+' ('+'i'+')'
     
     def correctextension(self,bookname):
         """attempts to correct the extension of the supplied filename"""

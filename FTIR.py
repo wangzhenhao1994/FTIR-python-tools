@@ -22,7 +22,7 @@ def FTIR(lst,pad_factor=16,apdzr=None,apodize_method='Blackman-Harris-3',pcpoint
         if zpd < points/2:
             return interferogram[:zpd*2]
         else:
-            return interferogram[zpd-points/2:zpd+points/2]
+            return interferogram[int(zpd-points/2):int(zpd+points/2)]
     
     def Mertz_phase_correct(interferogram,ftresult):
         """
@@ -56,7 +56,7 @@ def FTIR(lst,pad_factor=16,apdzr=None,apodize_method='Blackman-Harris-3',pcpoint
         zpd = np.where(interferogram == max(interferogram))[0][0] # find the zpd
         y = np.linspace(-0.5,0.5,zpd*2) # generate the ramp
         y -= 0.5 # shift so that all values are negative
-        y.resize(len(interferogram)) # pad with zeros to the length of the interferogram
+        y=np.resize(y,len(interferogram)) # pad with zeros to the length of the interferogram
         y += 1. # shift y
         return interferogram * y
     
@@ -80,4 +80,4 @@ def FTIR(lst,pad_factor=16,apdzr=None,apodize_method='Blackman-Harris-3',pcpoint
     rtd = rotate(apdzd) # rotate
     ft = np.fft.fft(rtd) # fft
     pc = Mertz_phase_correct(ifg,ft) # phase correct
-    return pc[:len(pc)/2]
+    return pc[:int(len(pc)/2)]

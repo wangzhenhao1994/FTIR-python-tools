@@ -27,7 +27,7 @@ class FTIR_run(object):
         if set(kwargs.keys()) - set(self.ks.keys()): # check for invalid keyword arguments
             string = ''
             for i in set(kwargs.keys()) - set(self.ks.keys()):
-                string += ` i`
+                string += ' i'
             raise KeyError('Unsupported keyword argument(s): %s' %string)
         self.ks.update(kwargs) # update defaules with provided keyword arguments
         
@@ -52,7 +52,7 @@ class FTIR_run(object):
         
         ##### figure out some way to tell the difference between a single scan and a multiscan file
         if len(self.tree.getElementsByTagName('AB')) > 0: # check whether single or multiple scans
-            print self.tree.getElementsByTagName('AB')
+            print(self.tree.getElementsByTagName('AB'))
             self.multiscan = False
             scann = 0 # scan number counter
         else:
@@ -92,13 +92,13 @@ class FTIR_run(object):
                 try:
                     self.sys.stdout.write('\rProcessing scan #%d/%d %.1f%%' %(scann+1,nscans,float(scann+1)/float(nscans)*100.))
                 except ValueError:
-                    print '\nfigure out why this block is not numbered:',scann,type(scann),'\n'
+                    print('\nfigure out why this block is not numbered:',scann,type(scann),'\n')
             self.scans[scann] = {}
             vals = scan.getElementsByTagName('values')[0] # get values tree
             nvals = vals.getAttribute('numvalues') # extract the number of values in the string
             fmt = '<'+nvals+'f' # generate format code (little endian float)
             string = self.gettext(vals.childNodes) # get the string
-            decoded = self.b64.decodestring(string) # decode the string
+            decoded = self.b64.b64decode(string) # decode the string
             lst = self.np.asarray(self.st.unpack(fmt,decoded)) # unpack the string into a list of values
             self.scans[scann]['interferogram'] = lst
             if self.multiscan is False: # if doing a hard counter
@@ -118,7 +118,7 @@ class FTIR_run(object):
             nvals = vals.getAttribute('numvalues')
             fmt = '<'+nvals+'f' # little endian float
             string = self.gettext(vals.childNodes)
-            decoded = self.b64.decodestring(string)
+            decoded = self.b64.b64decode(string)
             lst = self.np.asarray(self.st.unpack(fmt,decoded))
             self.ref = FTIR(lst,
             apdzr = apdzrinst,
@@ -165,7 +165,7 @@ class FTIR_run(object):
         out = {}
         for param in tree.getElementsByTagName('parameter'):
             #if param.getAttribute('name') in out:
-            #    print 'duplicate', param.getAttribute('name'), out[param.getAttribute('name')],gettext(param.childNodes)
+            #    print('duplicate', param.getAttribute('name'), out[param.getAttribute('name')],gettext(param.childNodes))
             out[param.getAttribute('name')] = self.ifs(self.gettext(param.childNodes))
         return out
     
@@ -440,7 +440,7 @@ if __name__ == '__main__':
     #apodize_method = 'blackman-harris-7',
     #pcpoints = 64,
     )
-    print run,'\n'
+    print(run,'\n')
     
     
     peaks = {
